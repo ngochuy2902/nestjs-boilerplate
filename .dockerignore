@@ -1,0 +1,8 @@
+/node_modules
+/mysql-data
+/coverage
+/dist
+/logs
+jest.config.ts
+yarn-error.log
+.env*

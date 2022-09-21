@@ -40,8 +40,7 @@ export class UserController {
     type: Number,
   })
   async createUser(@Body() userCreateReq: UserCreateReqDto): Promise<number> {
-    const { email, password, name, roles } = userCreateReq;
-    return this.userBloc.createUser(email, password, name, roles);
+    return this.userBloc.createUser(userCreateReq);
   }
 
   @Get('')

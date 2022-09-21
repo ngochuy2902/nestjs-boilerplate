@@ -17,5 +17,10 @@ export class UserResDto {
 
   @Expose()
   @ApiProperty()
+  @Transform(({ value }) => value.getTime())
+  birthday: number;
+
+  @Expose()
+  @ApiProperty()
   activated: boolean;
 }

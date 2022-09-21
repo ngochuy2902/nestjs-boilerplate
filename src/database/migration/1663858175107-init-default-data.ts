@@ -11,6 +11,7 @@ export class initDefaultData1663858175107 implements MigrationInterface {
       email: 'admin@localhost.com',
       password: '$2b$10$BSEVuhlYsMNn2tZnhQya4.fGEz6yfTmgcrvUZjlqvYLsagUMGnt8u',
       name: 'Admin',
+      birthday: new Date('2022-01-01'),
       createdBy: 1,
       updatedBy: 1,
     };
@@ -19,6 +20,7 @@ export class initDefaultData1663858175107 implements MigrationInterface {
       email: 'user@localhost.com',
       password: '$2b$10$BSEVuhlYsMNn2tZnhQya4.fGEz6yfTmgcrvUZjlqvYLsagUMGnt8u',
       name: 'User',
+      birthday: new Date('2022-01-02'),
       createdBy: 1,
       updatedBy: 1,
     };

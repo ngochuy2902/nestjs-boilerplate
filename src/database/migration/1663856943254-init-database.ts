@@ -30,6 +30,11 @@ export class initDatabase1663856943254 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: 'birthday',
+            type: 'timestamp(3)',
+            isNullable: true,
+          },
+          {
             name: 'activated',
             type: 'bit',
             isNullable: false,

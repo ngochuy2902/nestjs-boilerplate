@@ -17,6 +17,8 @@ import { MailService } from '@share/module/mail/mail.service';
 import { PaginationUtil } from '@util/pagination.util';
 import { EncryptionUtil } from '@util/encryption.util';
 import { UserService } from '@module/user/user.service';
+import { UserCreateReqDto } from '@module/user/dto/req/user-create-req.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class UserBloc {
@@ -33,12 +35,8 @@ export class UserBloc {
     this.context = UserBloc.name;
   }
 
-  async createUser(
-    email: string,
-    password: string,
-    name: string,
-    rolesNames: RoleType[],
-  ): Promise<number> {
+  async createUser(userCreateReq: UserCreateReqDto): Promise<number> {
+    const { email, password, name, roles: rolesNames } = userCreateReq;
     this.log.info(
       this.context,
       `Create user with email #${email}, name #${name} and roles #${rolesNames}`,
@@ -48,17 +46,12 @@ export class UserBloc {
       throw new AlreadyExistException(this.context, `User with email #${email}`);
     }
     const passwordHash = await EncryptionUtil.generateHash(password);
+    const userReq: User = plainToInstance(User, userCreateReq);
+    userReq.password = passwordHash;
 
     const transaction = await this.transactionManager.create();
     try {
-      const user = await this.userService.save(
-        {
-          email,
-          password: passwordHash,
-          name,
-        } as unknown as User,
-        transaction,
-      );
+      const user = await this.userService.save(userReq, transaction);
       const { id: userId } = user;
 
       const roles = await this.roleService.fetchByNames(rolesNames);

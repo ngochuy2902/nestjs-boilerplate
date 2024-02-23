@@ -20,7 +20,7 @@ import { Roles } from '@security/decorator/role.decorator';
 import { RoleType } from './dto/enum/role-type';
 import { JwtGuard } from '@security/guard/jwt.guard';
 import { UserFetchReqDto } from './dto/req/user-fetch-req.dto';
-import { PaginationResDto } from '@share/dto/response/pagination-res.dto';
+import { PaginationResDto } from '@util/page/response/pagination-res.dto';
 import { UserCreateReqDto } from './dto/req/user-create-req.dto';
 import { UserChangePasswordReqDto } from './dto/req/user-change-password-req.dto';
 import { PaginationUtil } from '@util/pagination.util';
@@ -55,14 +55,8 @@ export class UserController {
   })
   async fetchAllUsers(@Query() req: UserFetchReqDto): Promise<PaginationResDto> {
     const query = new UserFetchReqDto(req);
-    const { users, count } = await this.userBloc.fetchAll(query);
-    return PaginationUtil.getPageResponse(
-      plainToInstance(UserResDto, users, {
-        excludeExtraneousValues: true,
-      }),
-      query,
-      count,
-    );
+    const data = await this.userBloc.fetchAll(query);
+    return data.map((user) => plainToInstance(UserResDto, user, { excludeExtraneousValues: true }));
   }
 
   @Get('me')

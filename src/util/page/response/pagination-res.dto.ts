@@ -1,7 +1,7 @@
 import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { ObjectLiteral } from '../type/object-literal';
+import { ObjectLiteral } from '@share/dto/type/object-literal';
 
 export class PaginationResDto {
   @Expose()

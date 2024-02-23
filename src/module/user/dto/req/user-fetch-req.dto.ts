@@ -1,7 +1,7 @@
 import { IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { PaginationReqDto } from '@share/dto/request/pagination-req.dto';
+import { PaginationReqDto } from '@util/page/request/pagination-req.dto';
 
 export class UserFetchReqDto extends PaginationReqDto {
   @IsString()

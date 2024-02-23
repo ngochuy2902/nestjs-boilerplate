@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { UserRepository } from '@module/user/user.repository';
 import { User } from '@entity/user.entity';
 import { AppLogger } from '@config/logger/app-logger.config';
+import { Page } from '@util/page/page';
+import { PageRequest } from '@util/page/page-request';
 
 @Injectable()
 export class UserService {
@@ -28,7 +30,7 @@ export class UserService {
     return this.repository.getByEmail(email);
   }
 
-  async fetchUsers(keyword: string, pageRequest: any): Promise<{ users: User[]; count: number }> {
+  async fetchUsers(keyword: string, pageRequest: PageRequest): Promise<Page> {
     this.log.info(`Fetch users by keyword #${keyword} and pageRequest #`, pageRequest);
 
     return this.repository.fetchUsers(keyword, pageRequest);

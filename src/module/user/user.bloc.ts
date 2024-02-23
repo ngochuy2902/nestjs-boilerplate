@@ -17,6 +17,8 @@ import { Transactional } from 'typeorm-transactional';
 import { AlreadyExistException } from '@exception/already-exist.exception';
 import { CtxReq } from '@security/request-context/request-context.dto';
 import { UserCreateReqDto } from '@module/user/dto/req/user-create-req.dto';
+import { PageRequest } from '@util/page/page-request';
+import { Page } from '@util/page/page';
 
 @Injectable()
 export class UserBloc {
@@ -61,10 +63,11 @@ export class UserBloc {
     return userId;
   }
 
-  async fetchAll(query: UserFetchReqDto): Promise<{ users: User[]; count: number }> {
+  async fetchAll(query: UserFetchReqDto): Promise<Page> {
     this.log.info(`Fetch all users by query #`, query);
     const { keyword } = query;
-    const pageRequest = PaginationUtil.getPageRequest(query);
+    // const pageRequest = PaginationUtil.getPageRequest(query);
+    const pageRequest = PageRequest.of(query.page, query.pageSize, query.sortType, query.sortField);
     return this.userService.fetchUsers(keyword, pageRequest);
   }
 

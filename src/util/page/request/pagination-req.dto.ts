@@ -2,7 +2,7 @@ import { IsEnum, IsInt, IsOptional, IsPositive, IsString } from 'class-validator
 import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { SortDirection } from '../../enum/sort-direction.enum';
+import { SortDirection } from '@share/enum/sort-direction.enum';
 
 export class PaginationReqDto {
   constructor(data: Partial<PaginationReqDto>) {

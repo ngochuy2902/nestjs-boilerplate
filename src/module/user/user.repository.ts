@@ -2,6 +2,8 @@ import { DataSource, Like, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 
 import { User } from '@entity/user.entity';
+import { Page } from '@util/page/page';
+import { PageRequest } from '@util/page/page-request';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -21,12 +23,12 @@ export class UserRepository extends Repository<User> {
     return this.findOneBy({ email });
   }
 
-  async fetchUsers(keyword: string, pageRequest: any): Promise<{ users: User[]; count: number }> {
+  async fetchUsers(keyword: string, pageRequest: PageRequest): Promise<Page> {
     const condition = keyword && [{ name: Like(`%${keyword}%`) }, { email: Like(`%${keyword}%`) }];
     const [users, count] = await this.findAndCount({
       where: condition,
       ...pageRequest,
     });
-    return { users, count };
+    return Page.of(users, count, pageRequest);
   }
 }

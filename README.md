@@ -28,7 +28,6 @@
 ### Docker
 - Required:
   - Need to have docker installed
-  - Need to create `.env` file from `.env.example` file
 - Start
 `docker-compose up`
 - Shutdown

@@ -14,7 +14,7 @@ export async function createTestDataSource() {
     .withUserPassword('container_password')
     .start();
 
-  const dataSourceOptions = {
+  const testDataSourceOptions = {
     type: 'mysql' as const,
     host: container.getHost(),
     port: container.getMappedPort(3306),
@@ -29,18 +29,11 @@ export async function createTestDataSource() {
     synchronize: false,
   } as DataSourceOptions;
 
-  const testDataSourceOptions = {
-    host: container.getHost(),
-    port: container.getMappedPort(3306),
-    username: 'root',
-    password: container.getRootPassword(),
-    database: container.getDatabase(),
-    entities: [__dirname + '/../../src/entity/*.entity{.ts,.js}'],
-  };
+
   process.env.TEST_DATA_SOURCE_OPTIONS = JSON.stringify(testDataSourceOptions);
 
-  const testDataSource = new DataSource(dataSourceOptions);
+  const testDataSource = new DataSource(testDataSourceOptions);
   await testDataSource.initialize();
 
-  return { testDataSource, dataSourceOptions, container };
+  return { testDataSource, testDataSourceOptions, container };
 }

@@ -26,7 +26,7 @@ let moduleFixture: TestingModule;
 export async function initializeTestApp() {
   const {
     testDataSource,
-    dataSourceOptions,
+    testDataSourceOptions,
     container: mysqlContainer,
   } = await createTestDataSource();
 
@@ -42,7 +42,7 @@ export async function initializeTestApp() {
     imports: [
       TypeOrmModule.forRootAsync({
         useFactory() {
-          return dataSourceOptions;
+          return testDataSourceOptions;
         },
         async dataSourceFactory(options) {
           if (!options) {

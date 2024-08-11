@@ -10,7 +10,7 @@ export abstract class BaseEntityModel extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
   id: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   createdBy: number;
 
   @CreateDateColumn({
@@ -18,7 +18,7 @@ export abstract class BaseEntityModel extends BaseEntity {
   })
   createdAt: Date;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   updatedBy: number;
 
   @UpdateDateColumn({

@@ -43,3 +43,9 @@
 
 ### Format code
 - `yarn format`
+
+
+### Run migration
+```
+npx ts-node -r tsconfig-paths/register node_modules/typeorm/cli.js migration:run -d src/database/data-source.ts 
+```

@@ -3,13 +3,16 @@ import { User } from '../../entity/user.entity';
 import { RoleType } from '../../module/user/dto/enum/role-type';
 import { Role } from '../../entity/role.entity';
 import { UserRole } from '../../entity/user-role.entity';
+import { EncryptionUtil } from '@util/encryption.util';
 
 export class initDefaultData1663858175107 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    const passwordHash = await EncryptionUtil.generateHash('password');
+
     const admin: Partial<User> = {
       id: 1,
       email: 'admin@localhost.com',
-      password: '$2b$10$BSEVuhlYsMNn2tZnhQya4.fGEz6yfTmgcrvUZjlqvYLsagUMGnt8u',
+      password: passwordHash,
       name: 'Admin',
       createdBy: 1,
       updatedBy: 1,
@@ -17,7 +20,7 @@ export class initDefaultData1663858175107 implements MigrationInterface {
     const user: Partial<User> = {
       id: 2,
       email: 'user@localhost.com',
-      password: '$2b$10$BSEVuhlYsMNn2tZnhQya4.fGEz6yfTmgcrvUZjlqvYLsagUMGnt8u',
+      password: passwordHash,
       name: 'User',
       createdBy: 1,
       updatedBy: 1,

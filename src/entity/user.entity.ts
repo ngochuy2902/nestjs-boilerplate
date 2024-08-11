@@ -1,6 +1,7 @@
-import { Column, Entity, Unique } from 'typeorm';
+import { Column, Entity, OneToMany, Unique } from 'typeorm';
 
 import { BaseEntityModel } from './base.entity';
+import { Property } from './property.entity';
 
 @Entity('users')
 export class User extends BaseEntityModel {
@@ -18,4 +19,7 @@ export class User extends BaseEntityModel {
     default: true,
   })
   activated: boolean;
+
+  @OneToMany(() => Property, (property) => property.user)
+  properties: Property[];
 }

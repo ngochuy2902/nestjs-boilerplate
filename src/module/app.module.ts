@@ -8,6 +8,7 @@ import { AppLoggerModule } from '@config/logger/app-logger.module';
 import { addTransactionalDataSource, getDataSourceByName } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
 import { AppController } from '@module/app.controller';
+import { PropertyModule } from './property/property.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AppController } from '@module/app.controller';
     }),
     AuthModule,
     UserModule,
+    PropertyModule,
     AppLoggerModule,
   ],
   controllers: [AppController],
